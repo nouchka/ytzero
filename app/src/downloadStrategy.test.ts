@@ -43,6 +43,12 @@ describe("download strategy", () => {
     expect(renderDownloadOutputTemplate(template, { ...base, playlist: "" }, "abc123")).toBe("2026-07-27 - Episode [abc123]");
   });
 
+  test("renders indexed tag tokens and drops missing ones", () => {
+    const values = { "tag[0]": "Music/Live", "tag[1]": "Rock", title: "Episode", id: "abc123" };
+    expect(renderDownloadOutputTemplate("{tag[0]}/{title} [{id}]", values, "abc123")).toBe("Music - Live/Episode [abc123]");
+    expect(renderDownloadOutputTemplate("{tag[2]}/{title} [{id}]", values, "abc123")).toBe("Episode [abc123]");
+  });
+
   test("keeps Unicode filenames readable and replaces unsafe punctuation cleanly", () => {
     expect(renderDownloadOutputTemplate(
       "{title}-{id}",

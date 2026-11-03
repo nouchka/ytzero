@@ -142,9 +142,9 @@ export const DOWNLOADS_SETTINGS: DownloadSettingSource[] = [
     type: "text",
     label: { en: "Filename template", pl: "Szablon nazwy pliku", de: "Dateinamen-Vorlage" },
     description: {
-      en: "Tokens: {channel} {title} {id} {date} {year} {month} {day} {channel_id} {playlist}. {playlist} is set only for downloads queued from a playlist. \"/\" creates folders, e.g. {playlist}/{date} - {title} [{id}].",
-      pl: "Znaczniki: {channel} {title} {id} {date} {year} {month} {day} {channel_id} {playlist}. {playlist} jest ustawione tylko dla pobrań zakolejkowanych z playlisty. „/” tworzy foldery, np. {playlist}/{date} - {title} [{id}].",
-      de: "Platzhalter: {channel} {title} {id} {date} {year} {month} {day} {channel_id} {playlist}. {playlist} wird nur bei Downloads aus einer Playlist gesetzt. „/“ erzeugt Ordner, z. B. {playlist}/{date} - {title} [{id}].",
+      en: "Tokens: {channel} {title} {id} {date} {year} {month} {day} {channel_id} {playlist} {tag[0]}. {playlist} is set only for downloads queued from a playlist. {tag[0]} is the video's first tag, {tag[1]} the second, and so on, sorted by name. \"/\" creates folders, e.g. {playlist}/{date} - {title} [{id}].",
+      pl: "Znaczniki: {channel} {title} {id} {date} {year} {month} {day} {channel_id} {playlist} {tag[0]}. {playlist} jest ustawione tylko dla pobrań zakolejkowanych z playlisty. {tag[0]} to pierwszy tag wideo, {tag[1]} drugi itd., posortowane według nazwy. „/” tworzy foldery, np. {playlist}/{date} - {title} [{id}].",
+      de: "Platzhalter: {channel} {title} {id} {date} {year} {month} {day} {channel_id} {playlist} {tag[0]}. {playlist} wird nur bei Downloads aus einer Playlist gesetzt. {tag[0]} ist der erste Tag des Videos, {tag[1]} der zweite usw., alphabetisch sortiert. „/“ erzeugt Ordner, z. B. {playlist}/{date} - {title} [{id}].",
     },
     defaultValue: DL_DEFAULTS.output_template,
   },

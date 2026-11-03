@@ -79,7 +79,8 @@ rest of YT Zero remain available throughout.
 
 The filename template defaults to `{playlist}/{id}`. Available tokens include
 `{channel}`, `{title}`, `{id}`, `{date}`, `{year}`, `{month}`, `{day}`,
-`{channel_id}`, and `{playlist}`; `/` creates subdirectories. Administrators can
+`{channel_id}`, `{playlist}`, and `{tag[0]}` (the video's first tag by name,
+`{tag[1]}` the second, and so on); `/` creates subdirectories. Administrators can
 also enable thumbnail files, embedded metadata, `info.json`, NFO, and subtitle
 sidecars. Subtitle language and automatic-caption choices are per profile.
 When a local or direct-stream player needs a subtitle that is not stored as a

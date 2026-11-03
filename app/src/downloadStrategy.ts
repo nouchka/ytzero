@@ -75,7 +75,7 @@ function sanitizePathComponent(segment: string): string {
 }
 
 export function renderDownloadOutputTemplate(template: string, values: Record<string, string>, videoId: string): string {
-  const rendered = (template.trim() || "{id}").replace(/\{(\w+)\}/g, (_, key: string) => sanitizePathComponent(values[key] ?? ""));
+  const rendered = (template.trim() || "{id}").replace(/\{(\w+(?:\[\d+\])?)\}/g, (_, key: string) => sanitizePathComponent(values[key] ?? ""));
   const segments = rendered.split("/").map(sanitizePathComponent).filter(Boolean);
   let base = segments.join("/") || videoId;
   if (!base.includes(videoId)) base += ` [${videoId}]`;
