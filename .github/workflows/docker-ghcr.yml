@@ -18,7 +18,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: pelski/ytzero
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   prepare:
