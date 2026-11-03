@@ -100,7 +100,7 @@ export async function activeDownloadProgress(): Promise<{ video_id: string; perc
 // user's custom channel name and so every produced file shares a known base —
 // that's what lets cleanup find sidecars (.nfo, thumbnails, subtitles).
 
-export async function renderOutputTemplate(videoId: string, template: string): Promise<string> {
+export async function renderOutputTemplate(userId: number, videoId: string, template: string): Promise<string> {
   const row = await database.prepare(`
     SELECT v.title, v.published_at, v.channel_id,
            COALESCE(c.custom_title, c.title) AS channel_title,
@@ -121,6 +121,15 @@ export async function renderOutputTemplate(videoId: string, template: string): P
     month: date.slice(5, 7),
     day: date.slice(8, 10),
   };
+  // Tags are per profile, so only the requesting profile's tags name the file.
+  // {tag[0]} is the first tag by name, {tag[1]} the second, and so on.
+  const tags = await database.prepare(`
+    SELECT t.name FROM video_tags vt
+    JOIN tags t ON t.id = vt.tag_id AND t.user_id = ?
+    WHERE vt.video_id = ?
+    ORDER BY t.name COLLATE NOCASE
+  `).all(userId, videoId) as { name: string }[];
+  tags.forEach((tag, index) => { values[`tag[${index}]`] = tag.name; });
   return renderDownloadOutputTemplate(template, values, videoId);
 }
 
@@ -934,7 +943,7 @@ async function writeNfoFile(videoId: string, base: string) {
 
 async function runDownload(userId: number, videoId: string, s: DlSettings) {
   const format = downloadFormat(String(s.quality), s.compatible_format === 1);
-  const base = await renderOutputTemplate(videoId, String(s.output_template));
+  const base = await renderOutputTemplate(userId, videoId, String(s.output_template));
   mkdirSync(dirname(join(DOWNLOADS_DIR, base)), { recursive: true });
   const baseArgs = [
     `https://www.youtube.com/watch?v=${videoId}`,
