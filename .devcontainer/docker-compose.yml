@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        DENO_VERSION: "2.8.1"
+        BGUTIL_VERSION: "1.3.1"
+    image: ytzero-dev
+    container_name: ytzero-dev
+    volumes:
+      - ..:/workspace
+      - /workspace/node_modules
+      - /workspace/.bun
+    ports:
+      - "3001:3001"
+      - "5173:5173"
+    environment:
+      - PORT=3001
+      - DB_PATH=/workspace/data/db/ytzero.db
+      - IMG_CACHE_DIR=/workspace/data/imgcache
+      - DOWNLOADS_DIR=/workspace/data/downloads
+      - DENO_DIR=/workspace/data/deno-cache
+      - DOWNLOAD_COOKIES_DIR=/workspace/data/download-cookies
+      - YTDLP_BGUTIL_PLUGIN_DIR=/opt/ytzero/yt-dlp-plugins
+      - YTDLP_BGUTIL_SERVER_HOME=/opt/ytzero/bgutil/server
+      - RESTORE_SESSION_DIR=/workspace/data/restore-sessions
+      - AVATAR_DIR=/workspace/data/avatars
+      - LOG_PATH=/workspace/data/logs/ytzero.log
+      - YTDLP_PATH=/workspace/data/bin/yt-dlp
+      - UI_DIST=./public
+    working_dir: /workspace
+    command: /bin/bash
+    stdin_open: true
+    tty: true
