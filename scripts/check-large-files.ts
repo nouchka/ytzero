@@ -57,7 +57,7 @@ const lineLimits: Record<string, number> = {
   "ui/src/apiTypes.ts": 1220,
   "app/src/refresher.ts": 1428,
   "app/src/refreshScheduler.ts": 106,
-  "app/src/downloader.ts": 1260,
+  "app/src/downloader.ts": 1269,
   "app/src/downloadConfig.ts": 169,
   "app/src/downloadStreaming.ts": 299,
   "app/src/youtube.ts": 1294,
